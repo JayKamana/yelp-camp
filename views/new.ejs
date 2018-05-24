@@ -1,0 +1,41 @@
+<% include partials/header %>
+  <li class="nav-item">
+    <a class="nav-link" href="/">Home
+      <span class="sr-only">(current)</span>
+    </a>
+  </li>
+  <li class="nav-item active">
+    <a class="nav-link" href="/campgrounds">Campgrounds</a>
+  </li>
+  </ul>
+
+  <div>
+    <a href="#" class="btn btn-secondary">Login</a>
+    <a href="#" class="btn btn-secondary">Register</a>
+  </div>
+
+  </div>
+  </nav>
+
+  <section>
+    <h1 class="text-center mb-4">Create a new campground</h1>
+
+    <div class="row mb-4">
+      <form action="/campgrounds" method="post" class="col-md-6 offset-md-3">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type=" text " class="form-control " id="name" name='name' placeholder="Name ">
+        </div>
+        <div class="form-group ">
+          <label for="image">Image URL</label>
+          <input type="text " class="form-control " id="image" placeholder="Image URL">
+        </div>
+        <button type="submit " class="btn btn-primary btn-block">Submit</button>
+      </form>
+    </div>
+  </section>
+
+  <a href="/campgrounds">
+    <i class="fas fa-arrow-left"></i> Back
+  </a>
+  <% include partials/footer %>
