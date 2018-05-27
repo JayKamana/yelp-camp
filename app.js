@@ -23,8 +23,9 @@ app.get('/campgrounds', (req, res) => {
 app.post('/campgrounds', (req, res) => {
   const name = req.body.name;
   const image = req.body.image;
+  const description = req.body.description;
 
-  const newCampground = new Campground({ name, image });
+  const newCampground = new Campground({ name, image, description });
 
   newCampground
     .save()
