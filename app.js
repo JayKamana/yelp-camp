@@ -16,7 +16,7 @@ app.get('/', (req, res) => {
 
 app.get('/campgrounds', (req, res) => {
   Campground.find()
-    .then(campgrounds => res.render('Campgrounds', { campgrounds }))
+    .then(campgrounds => res.render('index', { campgrounds }))
     .catch(err => console.log(err));
 });
 
@@ -36,6 +36,12 @@ app.post('/campgrounds', (req, res) => {
 
 app.get('/campgrounds/new', (req, res) => {
   res.render('new');
+});
+
+app.get('/campgrounds/:id', (req, res) => {
+  Campground.findById(req.params.id)
+    .then(campground => res.render('show', { campground }))
+    .catch(err => console.log(err));
 });
 
 app.listen(3000, () => console.log('YelpCamp server is running on port 3000'));

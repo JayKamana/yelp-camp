@@ -1,0 +1,32 @@
+<% include partials/header %>
+
+  <li class="nav-item">
+    <a class="nav-link" href="/">Home
+      <span class="sr-only">(current)</span>
+    </a>
+  </li>
+  <li class="nav-item active">
+    <a class="nav-link" href="/campgrounds">Campgrounds</a>
+  </li>
+  </ul>
+
+  <div>
+    <a href="#" class="btn btn-secondary">Login</a>
+    <a href="#" class="btn btn-secondary">Register</a>
+  </div>
+
+  </div>
+  </nav>
+
+  <div>
+    <h2>
+      <%= campground.name %>
+    </h2>
+    <img src="<%= campground.image %>" alt="">
+    <p>
+      <%= campground.description %>
+    </p>
+  </div>
+
+
+  <% include partials/footer %>

@@ -29,10 +29,11 @@
       <div class="col-sm-6 col-lg-4 mb-4">
         <div class="card">
           <img class="card-img-top img-fluid " style="height: 235px;" src="<%= campground.image%>">
-          <div class="card-body">
-            <h5 class="card-title text-center">
+          <div class="card-body text-center">
+            <h5 class="card-title">
               <%= campground.name %>
             </h5>
+            <a href="/campgrounds/<%= campground._id %>" class="btn btn-primary">More info</a>
           </div>
         </div>
       </div>
