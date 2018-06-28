@@ -17,28 +17,64 @@
 
   </div>
   </nav>
+  <div class="row">
+    <div class='col-md-3'>
+      <p class="lead">Yelp Camp</p>
+      <div class="list-group">
+        <li class="list-group-item active">Info 1</li>
+        <li class="list-group-item">Info 2</li>
+        <li class="list-group-item">Info 3</li>
+      </div>
+    </div>
+    <div class="col-md-9">
 
-  <div>
-    <h2>
-      <%= campground.name %>
-    </h2>
-    <img src="<%= campground.image %>" alt="">
-    <p>
-      <%= campground.description %>
-    </p>
-    <p>
-      <a class="btn btn-success" href="/campgrounds/<%= campground.id %>/comments/new">Add new comment</a>
-    </p>
+      <figure class="figure">
+        <img class="figure-img img-fluid img-thumbnail" src="<%= campground.image %>" alt="">
+        <figcaption class="figure-caption">
+          <h4 class="text-right">$9.99/night</h4>
+          <h4>
+            <a href="#">
+              <%= campground.name %>
+            </a>
+          </h4>
+          <p>
+            <%= campground.description %>
+          </p>
+        </figcaption>
+      </figure>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card bg-light mb-3">
+            <div class="card-body">
+              <p class="text-right">
+                <a class="btn btn-success" href="/campgrounds/<%= campground.id %>/comments/new">Add new comment</a>
+              </p>
+              <hr>
+              <% campground.comments.forEach(function(comment){ %>
+                <p style="margin: 0">
+                  <span>
+                    <strong>
+                      <%= comment.author %>
+                    </strong>
+                  </span>
+                  <span class="float-right">
+                    10 days ago
+                  </span>
+                </p>
+                <p>
+                  <%= comment.text %>
+                </p>
+                <%})%>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+    </div>
+
   </div>
 
-  <% campground.comments.forEach(function(comment){ %>
-    <p>
-      <strong>
-        <%= comment.author %>
-      </strong>
-      -
-      <%= comment.text%>
-    </p>
-    <%})%>
 
-      <% include ../partials/footer %>
+  <% include ../partials/footer %>
