@@ -1,4 +1,4 @@
-<% include partials/header %>
+<% include ../partials/header %>
 
   <li class="nav-item">
     <a class="nav-link" href="/">Home
@@ -26,6 +26,9 @@
     <p>
       <%= campground.description %>
     </p>
+    <p>
+      <a class="btn btn-success" href="/campgrounds/<%= campground.id %>/comments/new">Add new comment</a>
+    </p>
   </div>
 
   <% campground.comments.forEach(function(comment){ %>
@@ -38,4 +41,4 @@
     </p>
     <%})%>
 
-      <% include partials/footer %>
+      <% include ../partials/footer %>

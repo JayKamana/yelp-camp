@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const { mongoose } = require('./db/mongoose');
 
 const { Campground } = require('./models/campground');
-// const { Comment } = require('./models/comment');
+const { Comment } = require('./models/comment');
 // const { User } = require('./models/user');
 
 const SeedDB = require('./seeds');
@@ -21,7 +21,7 @@ app.get('/', (req, res) => {
 
 app.get('/campgrounds', (req, res) => {
   Campground.find()
-    .then(campgrounds => res.render('index', { campgrounds }))
+    .then(campgrounds => res.render('campgrounds/index', { campgrounds }))
     .catch(err => console.log(err));
 });
 
@@ -41,7 +41,7 @@ app.post('/campgrounds', (req, res) => {
 });
 
 app.get('/campgrounds/new', (req, res) => {
-  res.render('new');
+  res.render('campgrounds/new');
 });
 
 app.get('/campgrounds/:id', (req, res) => {
@@ -49,8 +49,25 @@ app.get('/campgrounds/:id', (req, res) => {
     .populate('comments')
     .exec()
     .then(campground => {
-      console.log(campground);
-      res.render('show', { campground });
+      res.render('campgrounds/show', { campground });
+    })
+    .catch(err => console.log(err));
+});
+
+app.get('/campgrounds/:id/comments/new', (req, res) => {
+  Campground.findById(req.params.id)
+    .then(campground => res.render('comments/new', { campground }))
+    .catch(err => console.log(err));
+});
+
+app.post('/campgrounds/:id/comments', (req, res) => {
+  Campground.findById(req.params.id)
+    .then(campground => {
+      Comment.create(req.body.comment).then(comment => {
+        campground.comments.push(comment);
+        campground.save();
+        res.redirect('/campgrounds/' + campground._id);
+      });
     })
     .catch(err => console.log(err));
 });
