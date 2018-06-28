@@ -5,6 +5,11 @@ const bodyParser = require('body-parser');
 const { mongoose } = require('./db/mongoose');
 
 const { Campground } = require('./models/campground');
+// const { Comment } = require('./models/comment');
+// const { User } = require('./models/user');
+
+const SeedDB = require('./seeds');
+SeedDB();
 
 app.set('view engine', 'ejs');
 
@@ -41,7 +46,12 @@ app.get('/campgrounds/new', (req, res) => {
 
 app.get('/campgrounds/:id', (req, res) => {
   Campground.findById(req.params.id)
-    .then(campground => res.render('show', { campground }))
+    .populate('comments')
+    .exec()
+    .then(campground => {
+      console.log(campground);
+      res.render('show', { campground });
+    })
     .catch(err => console.log(err));
 });
 
