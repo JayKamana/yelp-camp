@@ -11,8 +11,16 @@
   </ul>
 
   <div>
-    <a href="#" class="btn btn-secondary">Login</a>
-    <a href="#" class="btn btn-secondary">Register</a>
+    <%if (!currentUser) {%>
+      <a href="/login" class="btn btn-secondary">Login</a>
+      <a href="/register" class="btn btn-secondary">Register</a>
+      <% } else { %>
+        <span>Welcome
+          <%= currentUser.username %>
+        </span>
+
+        <a href="/logout" class="btn btn-secondary"> Logout</a>
+        <% } %>
   </div>
 
   </div>
