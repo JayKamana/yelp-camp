@@ -2,3 +2,7 @@ figure,
 figure img {
   width: 100%;
 }
+
+#delete-form {
+  display: inline;
+}

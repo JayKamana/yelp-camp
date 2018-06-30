@@ -28,22 +28,22 @@ function seedDB() {
 
   Campground.remove({})
     .then(() => console.log('removed campgrounds!'))
-    .then(() => Comment.remove({}).then(() => console.log('removed comments!')))
-    .then(() =>
-      data.forEach(seed =>
-        Campground.create(seed).then(campground => {
-          console.log('added a campground');
-          Comment.create({
-            text: 'This place is great, but I wish there was internet',
-            author: 'Homer'
-          }).then(comment => {
-            campground.comments.push(comment);
-            campground.save();
-            console.log('Created new comment');
-          });
-        })
-      )
-    )
+    // .then(() => Comment.remove({}).then(() => console.log('removed comments!')))
+    // .then(() =>
+    //   data.forEach(seed =>
+    //     Campground.create(seed).then(campground => {
+    //       console.log('added a campground');
+    //       Comment.create({
+    //         text: 'This place is great, but I wish there was internet',
+    //         author: 'Homer'
+    //       }).then(comment => {
+    //         campground.comments.push(comment);
+    //         campground.save();
+    //         console.log('Created new comment');
+    //       });
+    //     })
+    //   )
+    // )
     .catch(err => console.log(err));
 }
 

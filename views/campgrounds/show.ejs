@@ -53,7 +53,12 @@
               <%= campground.author.username %>
             </em>
           </p>
-          <a class="btn btn-warning" href="/campgrounds/<%= campground.id%>/edit">Edit</a>
+          <% if(currentUser &&campground.author.id.equals(currentUser._id)){ %>
+            <a class="btn btn-warning" href="/campgrounds/<%= campground.id%>/edit">Edit</a>
+            <form id='delete-form' action="/campgrounds/<%= campground.id%>?_method=delete" method=post>
+              <button type="submit" class="btn btn-danger">Delete</button>
+            </form>
+            <% } %>
         </figcaption>
       </figure>
       <div class="row">
