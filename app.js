@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
-
+const methodOverride = require('method-override');
 const passport = require('passport');
 const localStrategy = require('passport-local');
 const passportLocalMongoose = require('passport-local-mongoose');
@@ -9,7 +9,7 @@ const passportLocalMongoose = require('passport-local-mongoose');
 const { mongoose } = require('./db/mongoose');
 
 const SeedDB = require('./seeds');
-SeedDB();
+//SeedDB();
 
 const { User } = require('./models/user');
 

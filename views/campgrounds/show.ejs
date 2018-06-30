@@ -48,6 +48,11 @@
           <p>
             <%= campground.description %>
           </p>
+          <p>
+            <em>Submitted By
+              <%= campground.author.username %>
+            </em>
+          </p>
         </figcaption>
       </figure>
       <div class="row">
@@ -62,7 +67,7 @@
                 <p style="margin: 0">
                   <span>
                     <strong>
-                      <%= comment.author %>
+                      <%= comment.author.username %>
                     </strong>
                   </span>
                   <span class="float-right">

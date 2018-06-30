@@ -2,6 +2,13 @@ const express = require('express');
 const router = express.Router();
 const { Campground } = require('../models/campground');
 
+const isLoggedIn = (req, res, next) => {
+  if (req.isAuthenticated()) {
+    return next();
+  }
+  res.redirect('/login');
+};
+
 //Index route
 router.get('/', (req, res) => {
   Campground.find()
@@ -10,27 +17,30 @@ router.get('/', (req, res) => {
 });
 
 //Campgrounds Create
-router.post('/', (req, res) => {
+router.post('/', isLoggedIn, (req, res) => {
   const name = req.body.name;
   const image = req.body.image;
   const description = req.body.description;
-
-  const newCampground = new Campground({ name, image, description });
-
-  newCampground
-    .save()
-    .then(campground => console.log(campground))
+  const author = {
+    id: req.user._id,
+    username: req.user.username
+  };
+  const newCampground = new Campground({ name, image, description, author });
+  Campground.create(newCampground)
+    .then(campground => {
+      console.log(campground);
+    })
     .catch(err => console.log(err));
 
   res.redirect('/campgrounds');
 });
 
 //Campgrounds New
-router.get('/new', (req, res) => {
+router.get('/new', isLoggedIn, (req, res) => {
   res.render('campgrounds/new');
 });
 
-//Comments Show
+//Campgrounds Show
 router.get('/:id', (req, res) => {
   Campground.findById(req.params.id)
     .populate('comments')
