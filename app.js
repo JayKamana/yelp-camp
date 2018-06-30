@@ -19,6 +19,8 @@ const indexRoutes = require('./routes/index');
 
 app.set('view engine', 'ejs');
 
+app.use(methodOverride('_method'));
+
 app.use(
   require('express-session')({
     secret: 'yelp camp secret key',
