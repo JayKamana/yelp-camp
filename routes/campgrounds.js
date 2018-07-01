@@ -1,29 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { Campground } = require('../models/campground');
-
-const isLoggedIn = (req, res, next) => {
-  if (req.isAuthenticated()) {
-    return next();
-  }
-  res.redirect('/login');
-};
-
-const checkCampgroundOwnership = (req, res, next) => {
-  if (req.isAuthenticated()) {
-    Campground.findById(req.params.id)
-      .then(foundCampground => {
-        if (foundCampground.author.id.equals(req.user._id)) {
-          next();
-        } else {
-          res.redirect('back');
-        }
-      })
-      .catch(() => res.redirect('back'));
-  } else {
-    res.redirect('back');
-  }
-};
+const { isLoggedIn, checkCampgroundOwnership } = require('../middleware');
 
 //Index route
 router.get('/', (req, res) => {

@@ -2,29 +2,7 @@ const express = require('express');
 const router = express.Router({ mergeParams: true });
 const { Campground } = require('../models/campground');
 const { Comment } = require('../models/comment');
-
-const isLoggedIn = (req, res, next) => {
-  if (req.isAuthenticated()) {
-    return next();
-  }
-  res.redirect('/login');
-};
-
-const checkCommentOwnership = (req, res, next) => {
-  if (req.isAuthenticated()) {
-    Comment.findById(req.params.comment_id)
-      .then(foundComment => {
-        if (foundComment.author.id.equals(req.user._id)) {
-          next();
-        } else {
-          res.redirect('back');
-        }
-      })
-      .catch(() => res.redirect('back'));
-  } else {
-    res.redirect('back');
-  }
-};
+const { isLoggedIn, checkCommentOwnership } = require('../middleware');
 
 //Comments New
 router.get('/new', isLoggedIn, (req, res) => {
