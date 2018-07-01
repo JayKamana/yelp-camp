@@ -25,21 +25,32 @@
   </div>
   </nav>
 
-  <section>
-    <h1 class="text-center mb-4">Edit Comment
-    </h1>
-    <div class="row mb-4">
-      <form action="/campgrounds/<%= campground_id %>/comments/<%= comment._id %>?_method=put " method="post" class="col-md-6 offset-md-3">
-        <div class="form-group">
-          <label for="comment">Comment</label>
-          <textarea class="form-control" id="comment" name='comment[text]'><%= comment.text %></textarea>
-        </div>
-        <button type="submit " class="btn btn-primary btn-block">Submit</button>
-      </form>
+  <% if(success && success.length > 0){ %>
+    <div class="alert alert-success" role="alert">
+      <%= success %>
     </div>
-  </section>
+  <% } %>
+  <% if(error && error.length > 0){ %>
+    <div class="alert alert-danger" role="alert">
+      <%= error %>
+    </div>
+  <% } %>
 
-  <a href="/campgrounds">
-    <i class="fas fa-arrow-left"></i> Back
-  </a>
-  <% include ../partials/footer %>
+          <section>
+            <h1 class="text-center mb-4">Edit Comment
+            </h1>
+            <div class="row mb-4">
+              <form action="/campgrounds/<%= campground_id %>/comments/<%= comment._id %>?_method=put " method="post" class="col-md-6 offset-md-3">
+                <div class="form-group">
+                  <label for="comment">Comment</label>
+                  <textarea class="form-control" id="comment" name='comment[text]'><%= comment.text %></textarea>
+                </div>
+                <button type="submit " class="btn btn-primary btn-block">Submit</button>
+              </form>
+            </div>
+          </section>
+
+          <a href="/campgrounds">
+            <i class="fas fa-arrow-left"></i> Back
+          </a>
+          <% include ../partials/footer %>

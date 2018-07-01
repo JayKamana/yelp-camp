@@ -5,6 +5,7 @@ const methodOverride = require('method-override');
 const passport = require('passport');
 const localStrategy = require('passport-local');
 const passportLocalMongoose = require('passport-local-mongoose');
+const flash = require('connect-flash');
 
 const { mongoose } = require('./db/mongoose');
 
@@ -20,6 +21,7 @@ const indexRoutes = require('./routes/index');
 app.set('view engine', 'ejs');
 
 app.use(methodOverride('_method'));
+app.use(flash());
 
 app.use(
   require('express-session')({
@@ -42,6 +44,8 @@ app.use(express.static(__dirname + '/public'));
 
 app.use((req, res, next) => {
   res.locals.currentUser = req.user;
+  res.locals.error = req.flash('error');
+  res.locals.success = req.flash('success');
   next();
 });
 

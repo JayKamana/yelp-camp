@@ -22,11 +22,13 @@ router.post('/', isLoggedIn, (req, res) => {
   const newCampground = new Campground({ name, image, description, author });
   Campground.create(newCampground)
     .then(campground => {
-      console.log(campground);
+      req.flash('success', campground.name + ' campground created');
+      res.redirect('/campgrounds');
     })
-    .catch(err => console.log(err));
-
-  res.redirect('/campgrounds');
+    .catch(() => {
+      req.flash('error', 'the campground could not be created');
+      res.redirect('/campgrounds');
+    });
 });
 
 //Campgrounds New
@@ -42,30 +44,42 @@ router.get('/:id', (req, res) => {
     .then(campground => {
       res.render('campgrounds/show', { campground });
     })
-    .catch(err => console.log(err));
+    .catch(() => {
+      req.flash('error', 'the campground could not be found');
+      res.redirect('/campgrounds');
+    });
 });
 
 router.get('/:id/edit', checkCampgroundOwnership, (req, res) => {
   Campground.findById(req.params.id)
     .then(campground => res.render('campgrounds/edit', { campground }))
-    .catch(err => console.log(err));
+    .catch(() => {
+      req.flash('error', 'Campground could not be found');
+      res.redirect('/campgrounds/' + req.params.id);
+    });
 });
 
 router.put('/:id', checkCampgroundOwnership, (req, res) => {
   Campground.findByIdAndUpdate(req.params.id, req.body.campground)
-    .then(updatedCampground => res.redirect('/campgrounds/' + req.params.id))
+    .then(updatedCampground => {
+      req.flash('success', 'Campground updated');
+      res.redirect('/campgrounds/' + req.params.id);
+    })
     .catch(err => {
-      res.redirect('/campgrounds');
-      console.log(err);
+      req.flash('error', 'Campground could not be updated');
+      res.redirect('/campgrounds/' + req.params.id);
     });
 });
 
 router.delete('/:id', checkCampgroundOwnership, (req, res) => {
   Campground.findByIdAndRemove(req.params.id)
-    .then(() => res.redirect('/campgrounds'))
-    .catch(err => {
+    .then(() => {
+      req.flash('success', 'Campground successfully deleted');
       res.redirect('/campgrounds');
-      console.log(err);
+    })
+    .catch(err => {
+      req.flash('error', 'Campground could not be deleted');
+      res.redirect('/campgrounds');
     });
 });
 

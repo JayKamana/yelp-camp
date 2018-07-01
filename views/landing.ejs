@@ -24,10 +24,21 @@
   </div>
   </nav>
 
-  <header class="jumbotron">
-    <h1 class="display-4">Welcome to YelpCamp!</h1>
-    <hr class="my-4">
-    <a class="btn btn-primary btn-lg" href="/campgrounds" role="button">View all campgrounds</a>
-  </header>
+  <% if(success && success.length > 0){ %>
+    <div class="alert alert-success" role="alert">
+      <%= success %>
+    </div>
+  <% } %>
+  <% if(error && error.length > 0){ %>
+    <div class="alert alert-danger" role="alert">
+      <%= error %>
+    </div>
+  <% } %>
 
-  <% include partials/footer %>
+          <header class="jumbotron">
+            <h1 class="display-4">Welcome to YelpCamp!</h1>
+            <hr class="my-4">
+            <a class="btn btn-primary btn-lg" href="/campgrounds" role="button">View all campgrounds</a>
+          </header>
+
+          <% include partials/footer %>
